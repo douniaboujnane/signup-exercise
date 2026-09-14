@@ -2,6 +2,13 @@ import { SignupFormData } from '../tests/fixtures/signup'
 import { BasePage } from './BasePage'
 
 export class SignupPage extends BasePage {
+  static readonly path = {
+    en: '/signup',
+    fr: '/fr/signup'
+  }
+
+  static readonly successRedirectPath = '/getaquote'
+
   get firstNameInput() {
     return this.page.getByTestId('first-name-input')
   }
@@ -55,8 +62,7 @@ export class SignupPage extends BasePage {
   }
 
   async navigate(locale: 'en' | 'fr' = 'en') {
-    const path = locale === 'en' ? '/signup' : '/fr/signup'
-    await this.page.goto(path)
+    await this.page.goto(SignupPage.path[locale])
     await this.dismissCookieBanner()
   }
 
@@ -70,5 +76,9 @@ export class SignupPage extends BasePage {
     await this.fillIfDefined(this.passwordInput, data.password)
     await this.fillIfDefined(this.passwordConfirmationInput, data.passwordConfirmation)
     await this.checkIfTrue(this.agreementCheckbox, data.agreeToTerms)
+  }
+
+  async submit() {
+    await this.submitButton.click()
   }
 }
