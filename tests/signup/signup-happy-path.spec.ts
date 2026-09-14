@@ -8,8 +8,11 @@ test.describe('Signup - Happy Path', () => {
     const data = createSignupData()
 
     await signupPage.navigate()
-    await expect(page).toHaveURL('/signup')
+    await expect(page).toHaveURL(SignupPage.path.en)
 
     await signupPage.fillForm(data)
+    await signupPage.submit()
+
+    await expect(page).toHaveURL(SignupPage.successRedirectPath, { timeout: 15000 })
   })
 })
