@@ -16,6 +16,16 @@ After a successful signup, the app redirects through an Auth0 OAuth exchange (`/
 
 **Revisit if:** the auth flow gets slower (or flakier) and 15s stops being enough — worth measuring actual redirect duration instead of re-guessing a bigger number.
 
+## Bilingual (FR/EN) test scope
+
+E2E tests only verify that the signup flow **behaves the same regardless of locale** — not that every string on every page is correctly translated. That's a translation-file completeness problem (comparing key sets between locale files), which doesn't scale as E2E and belongs in the app's own repo/CI, not this test suite.
+
+**In scope here (#8):** happy path re-run with `locale: 'fr'`, and one test that the language switcher itself works (URL/content actually changes on click).
+
+**Out of scope:** asserting every field label/error message is translated on every page. A handful of targeted spot-checks (e.g. the password rules text) is enough — see #6/#7.
+
+**Revisit if:** the app adds a third locale — this scope still holds (functional flow + switcher), no new E2E tests needed per language unless a critical flow needs guaranteed coverage in that language too.
+
 ## See also
 
 Product-side inconsistencies found while building this suite are tracked
