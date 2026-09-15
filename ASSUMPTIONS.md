@@ -28,6 +28,10 @@ One or two representative negative cases per field (missing, one invalid-format 
 
 **Region and phone country are excluded from the "missing field" test.** Both come pre-selected on page load (Quebec / Canada) and can't be reset to blank through the UI — there's no real "missing" state a user could ever produce, so no negative test is possible or meaningful for them. Open question: whether that default is hardcoded or derived from browser locale/geo-IP — untested either way, but not a risk today since `fillForm` always selects them explicitly via the factory rather than relying on the default.
 
+## Password rules hint text — no test written
+
+The FR password rules hint text is currently grammatically broken ("...doit contenir au entre 12 et 32 caractères...", filed as #20). No test asserts this text, on purpose: writing one now means choosing between asserting the broken text as-is (the test would pass but validate nothing — it'd just confirm the bug still exists) or asserting the correct text (the test would fail immediately, which is accurate but adds a known-red test to the suite rather than a real regression signal). Neither is useful right now. Once #20 is fixed, add a spot-check asserting the correct text in both locales.
+
 ## See also
 
 Product-side inconsistencies found while building this suite are tracked

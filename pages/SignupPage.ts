@@ -1,13 +1,15 @@
 import { SignupFormData } from '../tests/fixtures/signup'
 import { BasePage } from './BasePage'
 
+export type Locale = 'en' | 'fr'
+
 export class SignupPage extends BasePage {
-  static readonly path = {
+  static readonly path: Record<Locale, string> = {
     en: '/signup',
     fr: '/fr/signup'
   }
 
-  static readonly successRedirectPath = {
+  static readonly successRedirectPath: Record<Locale, string> = {
     en: '/getaquote',
     fr: '/getaquote/fr'
   }
@@ -68,7 +70,7 @@ export class SignupPage extends BasePage {
     return this.page.getByTestId(`${fieldName}-error-message-typography`)
   }
 
-  async navigate(locale: 'en' | 'fr' = 'en') {
+  async navigate(locale: Locale = 'en') {
     await this.page.goto(SignupPage.path[locale])
     await this.dismissCookieBanner()
   }
