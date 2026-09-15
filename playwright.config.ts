@@ -14,8 +14,10 @@ function getBaseURL(): string {
 
 export default defineConfig({
   use: {
-    baseURL: getBaseURL()
+    baseURL: getBaseURL(),
+    screenshot: 'only-on-failure'
   },
   testDir: './tests',
-  reporter: process.env.CI ? [['github'], ['html']] : 'html'
+  reporter: process.env.CI ? [['github'], ['html']] : 'html',
+  forbidOnly: !!process.env.CI
 })

@@ -64,6 +64,10 @@ export class SignupPage extends BasePage {
     return this.page.getByRole('link', { name: /Privacy Policy|politique de confidentialité/i })
   }
 
+  fieldErrorMessage(fieldName: string) {
+    return this.page.getByTestId(`${fieldName}-error-message-typography`)
+  }
+
   async navigate(locale: 'en' | 'fr' = 'en') {
     await this.page.goto(SignupPage.path[locale])
     await this.dismissCookieBanner()
