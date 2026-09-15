@@ -14,17 +14,19 @@ After a successful signup, the app redirects through an Auth0 OAuth exchange (`/
 
 **Assumption:** 15s comfortably covers the OAuth redirect chain under normal conditions; the value wasn't measured precisely, just picked with margin.
 
-**Revisit if:** the auth flow gets slower (or flakier) and 15s stops being enough — worth measuring actual redirect duration instead of re-guessing a bigger number.
-
 ## Bilingual (FR/EN) test scope
 
 E2E tests only verify that the signup flow **behaves the same regardless of locale** — not that every string on every page is correctly translated. That's a translation-file completeness problem (comparing key sets between locale files), which doesn't scale as E2E and belongs in the app's own repo/CI, not this test suite.
 
-**In scope here (#8):** happy path re-run with `locale: 'fr'`, and one test that the language switcher itself works (URL/content actually changes on click).
+**In scope here:** happy path re-run with `locale: 'fr'`, and one test that the language switcher itself works (URL/content actually changes on click).
 
-**Out of scope:** asserting every field label/error message is translated on every page. A handful of targeted spot-checks (e.g. the password rules text) is enough — see #6/#7.
+## Negative test case scope
 
-**Revisit if:** the app adds a third locale — this scope still holds (functional flow + switcher), no new E2E tests needed per language unless a critical flow needs guaranteed coverage in that language too.
+One or two representative negative cases per field (missing, one invalid-format example) is enough to verify the integration — that invalid input actually blocks submit and actually surfaces a visible error in the real UI. Exhaustive format edge-case coverage is assumed to already live in unit tests.
+
+**Revisit if:** a specific edge case turns out to slip through in production despite passing whatever unit coverage exists — that's a signal this integration layer needs to explicitly guard against it too.
+
+**Region and phone country are excluded from the "missing field" test.** Both come pre-selected on page load (Quebec / Canada) and can't be reset to blank through the UI — there's no real "missing" state a user could ever produce, so no negative test is possible or meaningful for them. Open question: whether that default is hardcoded or derived from browser locale/geo-IP — untested either way, but not a risk today since `fillForm` always selects them explicitly via the factory rather than relying on the default.
 
 ## See also
 
