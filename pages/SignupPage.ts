@@ -7,7 +7,10 @@ export class SignupPage extends BasePage {
     fr: '/fr/signup'
   }
 
-  static readonly successRedirectPath = '/getaquote'
+  static readonly successRedirectPath = {
+    en: '/getaquote',
+    fr: '/getaquote/fr'
+  }
 
   get firstNameInput() {
     return this.page.getByTestId('first-name-input')
