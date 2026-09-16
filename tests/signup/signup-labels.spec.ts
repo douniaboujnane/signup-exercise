@@ -13,14 +13,18 @@ const fieldLocators = (page: SignupPage) => ({
 
 test.describe('Signup - Field labels', () => {
   for (const locale of ['en', 'fr'] as const) {
-    test(`field placeholders show the correct text (${locale})`, async ({ page }) => {
-      const signupPage = new SignupPage(page)
-      await signupPage.navigate(locale)
+    test(
+      `field placeholders show the correct text (${locale})`,
+      { tag: `@${locale}` },
+      async ({ page }) => {
+        const signupPage = new SignupPage(page)
+        await signupPage.navigate(locale)
 
-      const locators = fieldLocators(signupPage)
-      for (const field of Object.keys(locators) as SignupLabelKey[]) {
-        await expect(locators[field]).toHaveAttribute('placeholder', signupLabels[field][locale])
+        const locators = fieldLocators(signupPage)
+        for (const field of Object.keys(locators) as SignupLabelKey[]) {
+          await expect(locators[field]).toHaveAttribute('placeholder', signupLabels[field][locale])
+        }
       }
-    })
+    )
   }
 })

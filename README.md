@@ -22,6 +22,8 @@ npm run report    # open the last HTML report
 
 Full script list (UI mode, debug mode, lint/format) in `package.json`.
 
+Tests run on Chromium only — no cross-browser coverage configured.
+
 ## Structure
 
 ```
