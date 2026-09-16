@@ -39,4 +39,4 @@ Locators are role/testid-based for interaction; visible text is only asserted wh
 ## Docs
 
 - `ASSUMPTIONS.md` — judgment calls made while building this suite
-- Bugs found on the target app: `BUG_REPORT.md`
+- Bugs found on the target app: tracked as [GitHub issues labeled `bug`](https://github.com/douniaboujnane/nesto/issues?q=is%3Aissue+label%3Abug)
