@@ -2,7 +2,7 @@ import test, { expect } from '@playwright/test'
 import { SignupPage } from '../../pages/SignupPage'
 import { createSignupData } from '../fixtures/signup'
 
-test.describe('Signup - Field validation', () => {
+test.describe('Signup - Field validation', { tag: '@en' }, () => {
   let signupPage: SignupPage
 
   test.beforeEach(async ({ page }) => {
