@@ -1,70 +1,40 @@
 # nesto
 
-End-to-end tests with [Playwright](https://playwright.dev/) and TypeScript.
+Playwright + TypeScript test suite for the nesto signup flow (`/signup`) — UI (positive/negative/bilingual) and API-level coverage.
 
-## Prerequisites
-
-- [Node.js](https://nodejs.org/)
-
-## Install
+## Setup
 
 ```sh
 npm install
-npx playwright install
+npx playwright install chromium
+cp .env.example .env   # set BASE_URL and TEST_ACCOUNT_PASSWORD
 ```
 
-## Configuration
-
-Environment variables are loaded from a `.env` file at the project root (not committed to git). See `.env.example` if present for the expected keys.
-
-## Usage
-
-Run the test suite:
+## Running
 
 ```sh
-npm test
+npm test          # full suite
+npm run test:en   # English-tagged UI tests
+npm run test:fr   # French-tagged UI tests
+npm run test:api  # API tests, no browser
+npm run report    # open the last HTML report
 ```
 
-Run tests in interactive UI mode:
+Full script list (UI mode, debug mode, lint/format) in `package.json`.
 
-```sh
-npm run test:ui
-```
-
-Run tests in debug mode:
-
-```sh
-npm run test:debug
-```
-
-Open the HTML report from the last run:
-
-```sh
-npm run report
-```
-
-Type-check the project without emitting output:
-
-```sh
-npm run tsc
-```
-
-Format the codebase with Prettier:
-
-```sh
-npm run format
-```
-
-Check formatting without writing changes:
-
-```sh
-npm run format:check
-```
-
-## Project structure
+## Structure
 
 ```
-tests/                 Test specs
-playwright.config.ts   Playwright configuration
-tsconfig.json          TypeScript configuration
+pages/            Page Objects — SignupPage, NavbarHeaderPage, BasePage
+tests/
+  signup/         Specs by concern: happy path, validation, bilingual, labels, API
+  fixtures/       Test data factories — signup form data, account API payload, i18n labels
+  support/        Shared flows (runHappySignup)
 ```
+
+Locators are role/testid-based for interaction; visible text is only asserted where content correctness itself is under test (labels, translated error messages) — see `pages/SignupPage.ts`.
+
+## Docs
+
+- `ASSUMPTIONS.md` — judgment calls made while building this suite
+- Bugs found on the target app: `BUG_REPORT.md`
