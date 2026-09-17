@@ -1,21 +1,21 @@
-import test, { expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 import { SignupPage } from '../../pages/SignupPage'
-import { createSignupData } from '../fixtures/signup'
+import { createSignupData } from '../fixtures/signupFormData'
 
-test.describe('Signup - Field validation', { tag: '@en' }, () => {
+test.describe('Signup - Field validation', () => {
   let signupPage: SignupPage
 
   test.beforeEach(async ({ page }) => {
     signupPage = new SignupPage(page)
     await signupPage.navigate()
-    await expect(page).toHaveURL('/signup')
+    await expect(page).toHaveURL(SignupPage.path.en)
   })
 
   test('blocks submit and shows an error for every field when the form is empty', async ({
     page
   }) => {
     await signupPage.submit()
-    await expect(page).toHaveURL('/signup')
+    await expect(page).toHaveURL(SignupPage.path.en)
     await expect(signupPage.fieldErrorMessage('first-name')).toBeVisible()
     await expect(signupPage.fieldErrorMessage('last-name')).toBeVisible()
     await expect(signupPage.fieldErrorMessage('phone')).toBeVisible()
@@ -27,7 +27,7 @@ test.describe('Signup - Field validation', { tag: '@en' }, () => {
     const data = createSignupData({ email: 'not-valid-email' })
     await signupPage.fillForm(data)
     await signupPage.submit()
-    await expect(page).toHaveURL('/signup')
+    await expect(page).toHaveURL(SignupPage.path.en)
     await expect(signupPage.fieldErrorMessage('email')).toBeVisible()
   })
 
@@ -35,7 +35,7 @@ test.describe('Signup - Field validation', { tag: '@en' }, () => {
     const data = createSignupData({ phoneNumber: '1234' })
     await signupPage.fillForm(data)
     await signupPage.submit()
-    await expect(page).toHaveURL('/signup')
+    await expect(page).toHaveURL(SignupPage.path.en)
     await expect(signupPage.fieldErrorMessage('phone')).toBeVisible()
   })
 
@@ -43,7 +43,7 @@ test.describe('Signup - Field validation', { tag: '@en' }, () => {
     const data = createSignupData({ password: 'not-valid-password' })
     await signupPage.fillForm(data)
     await signupPage.submit()
-    await expect(page).toHaveURL('/signup')
+    await expect(page).toHaveURL(SignupPage.path.en)
     await expect(signupPage.fieldErrorMessage('password')).toBeVisible()
   })
 
@@ -51,7 +51,7 @@ test.describe('Signup - Field validation', { tag: '@en' }, () => {
     const data = createSignupData({ passwordConfirmation: 'not-valid-password-confirmation' })
     await signupPage.fillForm(data)
     await signupPage.submit()
-    await expect(page).toHaveURL('/signup')
+    await expect(page).toHaveURL(SignupPage.path.en)
     await expect(signupPage.fieldErrorMessage('passwordConfirmation')).toBeVisible()
   })
 
@@ -61,7 +61,7 @@ test.describe('Signup - Field validation', { tag: '@en' }, () => {
     const data = createSignupData({ passwordConfirmation: undefined })
     await signupPage.fillForm(data)
     await signupPage.submit()
-    await expect(page).toHaveURL('/signup')
+    await expect(page).toHaveURL(SignupPage.path.en)
     await expect(signupPage.fieldErrorMessage('passwordConfirmation')).toBeVisible()
   })
 })

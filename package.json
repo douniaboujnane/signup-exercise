@@ -1,19 +1,15 @@
 {
   "name": "nesto",
   "version": "1.0.0",
-  "description": "- node - npm init playwright@latest",
+  "description": "Nesto signup flow.",
   "main": "index.js",
   "scripts": {
     "tsc": "tsc --noEmit",
-    "test": "playwright test",
-    "test:en": "playwright test --grep @en",
-    "test:fr": "playwright test --grep @fr",
-    "test:api": "playwright test signup-api",
-    "test:ui": "playwright test --ui",
-    "test:debug": "playwright test --debug",
-    "report": "npx playwright show-report",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "report": "npx playwright show-report"
   },
   "repository": {
     "type": "git",

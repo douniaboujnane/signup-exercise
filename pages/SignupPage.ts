@@ -1,4 +1,4 @@
-import { SignupFormData } from '../tests/fixtures/signup'
+import { SignupFormData } from '../tests/fixtures/signupFormData'
 import { BasePage } from './BasePage'
 
 export type Locale = 'en' | 'fr'
