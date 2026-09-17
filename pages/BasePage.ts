@@ -21,18 +21,9 @@ export class BasePage {
 
   protected async dismissCookieBanner() {
     const agreeButton = this.page.locator('#didomi-notice-agree-button')
-    const pollIntervalMs = 300
-    const maxWaitMs = 3000
-    const maxAttempts = maxWaitMs / pollIntervalMs
 
-    // Polls with .count() (never throws, unlike .click()/.waitFor()) so a missing banner
-    // (e.g. consent already given in a previous run) doesn't show up as a failed step in the report.
-    for (let attempt = 0; attempt < maxAttempts; attempt++) {
-      if ((await agreeButton.count()) > 0) {
-        await agreeButton.click()
-        return
-      }
-      await this.page.waitForTimeout(pollIntervalMs)
-    }
+    await agreeButton.click({ timeout: 3000 }).catch((error) => {
+      if (!error.message.includes('Timeout')) throw error
+    })
   }
 }

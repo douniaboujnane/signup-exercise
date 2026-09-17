@@ -1,4 +1,4 @@
-import { randomUUID } from 'node:crypto'
+import { createTestPerson } from './testPerson'
 
 export interface AccountApiPayload {
   firstName: string
@@ -12,23 +12,17 @@ export interface AccountApiPayload {
   formName: string
 }
 
-function getDefaultPassword(): string {
-  const password = process.env.TEST_ACCOUNT_PASSWORD
-  if (!password) {
-    throw new Error('Missing TEST_ACCOUNT_PASSWORD in .env')
-  }
-  return password
-}
-
 export function createAccountPayload(overrides?: Partial<AccountApiPayload>): AccountApiPayload {
+  const person = createTestPerson()
+
   return {
-    firstName: 'Jane',
-    lastName: 'Doe',
-    email: `boujnane11+${randomUUID()}@hotmail.com`,
-    phone: '+15141234567',
-    region: 'QC',
+    firstName: person.firstName,
+    lastName: person.lastName,
+    email: person.email,
+    phone: `+1${person.phoneNumber}`,
+    region: person.region,
     language: 'en',
-    password: getDefaultPassword(),
+    password: person.password,
     leadDistributeConsentAgreement: true,
     formName: 'signup',
     ...overrides

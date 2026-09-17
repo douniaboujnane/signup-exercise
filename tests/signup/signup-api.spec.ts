@@ -1,8 +1,8 @@
-import test, { expect } from '@playwright/test'
-import { createAccountPayload } from '../fixtures/accountApi'
+import { expect, test } from '@playwright/test'
+import { createAccountPayload } from '../fixtures/accountApiPayload'
 
 test.describe('Signup - API', () => {
-  test('creates an account successfuly', async ({ request }) => {
+  test('create an account successfuly', async ({ request }) => {
     const payload = createAccountPayload()
 
     const response = await request.post('/api/accounts', { data: payload })
@@ -19,7 +19,7 @@ test.describe('Signup - API', () => {
     })
   })
 
-  test('rejects an invalid email', async ({ request }) => {
+  test('reject an invalid email', async ({ request }) => {
     const payload = createAccountPayload({ email: 'not-an-email' })
 
     const response = await request.post('/api/accounts', { data: payload })

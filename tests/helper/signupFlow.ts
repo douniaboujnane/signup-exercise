@@ -1,8 +1,8 @@
 import { expect, Page } from '@playwright/test'
 import { Locale, SignupPage } from '../../pages/SignupPage'
-import { createSignupData } from '../fixtures/signup'
+import { createSignupData } from '../fixtures/signupFormData'
 
-export async function runHappySignup(page: Page, locale: Locale = 'en') {
+export async function runHappySignup(page: Page, locale: Locale) {
   const signupPage = new SignupPage(page)
   const data = createSignupData()
 
