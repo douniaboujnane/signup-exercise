@@ -15,7 +15,7 @@ function getBaseURL(): string {
 export default defineConfig({
   use: {
     baseURL: getBaseURL(),
-    screenshot: 'only-on-failure'
+    screenshot: { mode: 'only-on-failure', fullPage: true }
   },
   testDir: './tests',
   reporter: process.env.CI ? [['github'], ['html']] : 'html',
