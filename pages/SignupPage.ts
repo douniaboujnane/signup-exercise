@@ -66,6 +66,10 @@ export class SignupPage extends BasePage {
     return this.page.getByRole('link', { name: /Privacy Policy|politique de confidentialité/i })
   }
 
+  get errorToast() {
+    return this.page.locator('.Toastify__toast--error')
+  }
+
   fieldErrorMessage(fieldName: string) {
     return this.page.getByTestId(`${fieldName}-error-message-typography`)
   }

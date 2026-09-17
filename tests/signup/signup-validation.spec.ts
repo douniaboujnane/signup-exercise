@@ -23,12 +23,36 @@ test.describe('Signup - Field validation', () => {
     await expect(signupPage.fieldErrorMessage('password')).toBeVisible()
   })
 
+  test('shows an error for an invalid first name', async ({ page }) => {
+    const data = createSignupData({ firstName: '%test' })
+    await signupPage.fillForm(data)
+    await signupPage.submit()
+    await expect(page).toHaveURL(SignupPage.path.en)
+    await expect(signupPage.fieldErrorMessage('first-name')).toBeVisible()
+  })
+
+  test('shows an error for an invalid last name', async ({ page }) => {
+    const data = createSignupData({ lastName: '%test' })
+    await signupPage.fillForm(data)
+    await signupPage.submit()
+    await expect(page).toHaveURL(SignupPage.path.en)
+    await expect(signupPage.fieldErrorMessage('last-name')).toBeVisible()
+  })
+
   test('shows an error for an invalid email format', async ({ page }) => {
     const data = createSignupData({ email: 'not-valid-email' })
     await signupPage.fillForm(data)
     await signupPage.submit()
     await expect(page).toHaveURL(SignupPage.path.en)
     await expect(signupPage.fieldErrorMessage('email')).toBeVisible()
+  })
+
+  test('shows an error for an invalid email domain', async ({ page }) => {
+    const data = createSignupData({ email: 'qa-test@example.com' })
+    await signupPage.fillForm(data)
+    await signupPage.submit()
+    await expect(page).toHaveURL(SignupPage.path.en)
+    await expect(signupPage.errorToast).toBeVisible()
   })
 
   test('shows an error for an invalid phone number format', async ({ page }) => {

@@ -18,7 +18,7 @@ function getDefaultPassword(): string {
 }
 
 function getDefaultEmail(): string {
-  return `boujnane11+${randomUUID()}@hotmail.com`
+  return `qa-test+${randomUUID()}@gmail.com`
 }
 
 export function createTestPerson(overrides?: Partial<TestPerson>): TestPerson {
